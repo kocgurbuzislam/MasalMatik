@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "server": "node server/index.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "generate:splash": "node scripts/generate-splash.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -17,7 +18,8 @@
     "expo": "^54.0.21",
     "express": "^5.1.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-native-web": "^0.21.0"
   },
   "engines": {
     "node": ">=20"
@@ -26,6 +28,7 @@
     "@types/node": "^22.14.0",
     "@types/react": "~19.1.10",
     "@vitejs/plugin-react": "^5.0.0",
+    "sharp": "^0.33.5",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
