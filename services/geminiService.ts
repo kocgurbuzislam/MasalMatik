@@ -3,9 +3,14 @@ import Constants from 'expo-constants';
 import { Story } from '../types';
 
 function deriveBaseUrl(): string {
+  const anyConst: any = Constants as any;
+  // 1) Prefer app.config extra.apiUrl
+  const fromConfig = anyConst?.expoConfig?.extra?.apiUrl || anyConst?.manifest?.extra?.apiUrl;
+  if (fromConfig && typeof fromConfig === 'string') return fromConfig;
+  // 2) Fallback to public env
   const fromEnv = process.env.EXPO_PUBLIC_API_URL;
   if (fromEnv) return fromEnv;
-  const anyConst: any = Constants as any;
+  // 3) Dev fallback to local packager host
   const hostUri: string | undefined =
     anyConst?.expoConfig?.hostUri ||
     anyConst?.manifest?.debuggerHost ||
@@ -14,6 +19,7 @@ function deriveBaseUrl(): string {
     const host = hostUri.split(':')[0];
     return `http://${host}:3001`;
   }
+  // 4) Emulator defaults
   return Platform.OS === 'android' ? 'http://10.0.2.2:3001' : 'http://localhost:3001';
 }
 
