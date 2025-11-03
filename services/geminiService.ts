@@ -32,7 +32,7 @@ export async function generateStoryAndImage(prompt: string): Promise<Story> {
     const res = await fetch(`${baseUrl}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, withImage: false }),
+      body: JSON.stringify({ prompt }),
       signal: controller.signal,
     });
     clearTimeout(t);
@@ -56,8 +56,23 @@ export async function generateStoryAndImage(prompt: string): Promise<Story> {
       text: data.text,
       imageUrl: data.imageUrl || '',
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in Gemini service (client):', error);
-    throw new Error('Failed to generate story and image.');
+    
+    // Check if it's a rate limit error
+    const errorMessage = error?.message || String(error);
+    if (errorMessage.includes('429') || 
+        errorMessage.includes('Too Many Requests') || 
+        errorMessage.includes('Resource exhausted') ||
+        errorMessage.includes('API limit')) {
+      throw new Error('API limit aşıldı. Lütfen birkaç dakika bekleyip tekrar deneyin.');
+    }
+    
+    // Check if it's a network error
+    if (error?.name === 'AbortError' || errorMessage.includes('aborted')) {
+      throw new Error('İstek zaman aşımına uğradı. Lütfen tekrar deneyin.');
+    }
+    
+    throw new Error('Hikaye oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
   }
 }

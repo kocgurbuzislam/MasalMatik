@@ -19,21 +19,42 @@ module.exports = {
   expo: {
     name: 'MasalMatik',
     slug: 'masalmatik',
-    extra: {
-      apiUrl: process.env.EXPO_PUBLIC_API_URL || 'https://masalmatik.onrender.com',
-    },
-    ...(icon ? { icon } : {}),
-    android: {
-      package: 'com.masalmatik.app',
-      adaptiveIcon: {
-        ...(adaptiveForeground ? { foregroundImage: adaptiveForeground } : icon ? { foregroundImage: icon } : {}),
-        backgroundColor: BRAND_BG,
-      },
-    },
+    version: '1.0.0',
+    orientation: 'portrait',
+    icon: icon,
+    userInterfaceStyle: 'light',
     splash: {
       ...(splash ? { image: splash } : icon ? { image: icon } : {}),
       backgroundColor: BRAND_BG,
       resizeMode: 'contain',
     },
+    assetBundlePatterns: ['**/*'],
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: 'com.masalmatik.app',
+    },
+    android: {
+      package: 'com.masalmatik.app',
+      versionCode: 1,
+      adaptiveIcon: {
+        ...(adaptiveForeground ? { foregroundImage: adaptiveForeground } : icon ? { foregroundImage: icon } : {}),
+        backgroundColor: BRAND_BG,
+      },
+      permissions: [
+        'INTERNET',
+      ],
+      minSdkVersion: 21,
+      targetSdkVersion: 34,
+      compileSdkVersion: 34,
+      // Privacy Policy URL - Google Play Store için ZORUNLU
+      // privacyPolicy: 'https://yourdomain.com/privacy-policy', // Bu satırın yorumunu kaldırıp URL'nizi ekleyin
+    },
+    web: {
+      favicon: icon,
+    },
+    extra: {
+      apiUrl: process.env.EXPO_PUBLIC_API_URL || 'https://masalmatik.onrender.com',
+    },
+    privacy: 'public',
   },
 };
