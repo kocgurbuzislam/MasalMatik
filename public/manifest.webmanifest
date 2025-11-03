@@ -1,0 +1,11 @@
+{
+  "name": "Sihirli Hikayeler",
+  "short_name": "Hikayeler",
+  "start_url": "/",
+  "display": "standalone",
+  "lang": "tr",
+  "background_color": "#a855f7",
+  "theme_color": "#a855f7",
+  "description": "Çocuklar için sihirli hikayeler oluşturun."
+}
+

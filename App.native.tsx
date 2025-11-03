@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, TextInput, Image, Pressable, ActivityIndicator, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Modal } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, TextInput, Image, Pressable, ActivityIndicator, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { generateStoryAndImage } from './services/geminiService';
 import type { Story } from './types';
  
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
   storyText: { fontSize: 16, lineHeight: 24, color: '#111827' },
   loadingText: { marginTop: 8, color: '#6b7280' },
   footer: { textAlign: 'center', marginTop: 16, color: '#6b7280' },
+  errorText: { color: '#b91c1c' }
 });
 
 

@@ -28,7 +28,7 @@ export async function generateStoryAndImage(prompt: string): Promise<Story> {
     const baseUrl = deriveBaseUrl();
 
     const controller = new AbortController();
-    const t = setTimeout(() => controller.abort(), 20000);
+    const t = setTimeout(() => controller.abort(), 45000);
     const res = await fetch(`${baseUrl}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

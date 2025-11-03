@@ -17,7 +17,7 @@ const StoryForm: React.FC<{
     isLoading: boolean;
 }> = ({ onSubmit, isLoading }) => {
     const [prompt, setPrompt] = useState('');
-    const suggestions = ["cesur bir sincap", "kayıp yıldız", "konuşan bir bulut", "sihirli bir orman"];
+    const suggestions = ["cesur bir sincap", "kaybolan yıldız", "konuşan bir bulut", "sihirli bir orman"];
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -146,3 +146,4 @@ export default function App() {
         </main>
     );
 }
+

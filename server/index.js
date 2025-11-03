@@ -1,5 +1,6 @@
 /* Simple backend for RN client to call Gemini safely (ESM) */
 import dotenv from 'dotenv';
+
 dotenv.config({ path: '.env.local' });
 
 import express from 'express';
@@ -89,8 +90,8 @@ app.post('/api/generate', async (req, res) => {
 });
 
 app.get('/health', (_req, res) => res.send('ok'));
-
-// Removed payments/webhook endpoints for v1
+// Root route for platform health checks
+app.get('/', (_req, res) => res.status(200).send('ok'));
 
 // Debug: list available models for this API key (v1)
 app.get('/api/models', async (_req, res) => {
