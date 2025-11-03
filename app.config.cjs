@@ -1,6 +1,6 @@
-// Expo app configuration. Central place for public runtime config.
-import fs from 'fs';
-import path from 'path';
+// Expo app configuration (CommonJS variant to avoid ESM loader issues)
+const fs = require('fs');
+const path = require('path');
 
 function fileIfExists(p) {
   try {
@@ -15,15 +15,18 @@ const adaptiveForeground = fileIfExists(path.resolve('assets/adaptive-icon.png')
 const splash = fileIfExists(path.resolve('assets/splash.png'));
 const BRAND_BG = '#FFF7E6';
 
-export default {
+module.exports = {
   expo: {
     name: 'MasalMatik',
     slug: 'masalmatik',
     extra: {
       apiUrl: process.env.EXPO_PUBLIC_API_URL || 'https://masalmatik.onrender.com',
+      rcAndroidKey: process.env.EXPO_PUBLIC_RC_ANDROID_KEY || '',
     },
+    plugins: ['react-native-purchases'],
     ...(icon ? { icon } : {}),
     android: {
+      package: 'com.masalmatik.app',
       adaptiveIcon: {
         ...(adaptiveForeground ? { foregroundImage: adaptiveForeground } : icon ? { foregroundImage: icon } : {}),
         backgroundColor: BRAND_BG,
