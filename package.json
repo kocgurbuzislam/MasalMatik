@@ -13,14 +13,14 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@react-native-async-storage/async-storage": "2.2.0",
+    
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "expo": "^54.0.21",
     "express": "^5.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-native-purchases": "^7.28.1",
+    
     "react-native-web": "^0.21.0"
   },
   "engines": {

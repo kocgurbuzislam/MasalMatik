@@ -1,7 +1,6 @@
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import { Story } from '../types';
-import { getAppUserId } from './userId';
 
 function deriveBaseUrl(): string {
   const anyConst: any = Constants as any;
@@ -28,13 +27,12 @@ export async function generateStoryAndImage(prompt: string): Promise<Story> {
   try {
     const baseUrl = deriveBaseUrl();
 
-    const appUserId = await getAppUserId();
     const controller = new AbortController();
     const t = setTimeout(() => controller.abort(), 20000);
     const res = await fetch(`${baseUrl}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, withImage: true, appUserId }),
+      body: JSON.stringify({ prompt, withImage: false }),
       signal: controller.signal,
     });
     clearTimeout(t);

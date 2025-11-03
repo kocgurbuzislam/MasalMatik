@@ -21,9 +21,7 @@ module.exports = {
     slug: 'masalmatik',
     extra: {
       apiUrl: process.env.EXPO_PUBLIC_API_URL || 'https://masalmatik.onrender.com',
-      rcAndroidKey: process.env.EXPO_PUBLIC_RC_ANDROID_KEY || '',
     },
-    plugins: ['react-native-purchases'],
     ...(icon ? { icon } : {}),
     android: {
       package: 'com.masalmatik.app',

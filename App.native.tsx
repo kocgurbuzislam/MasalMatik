@@ -2,24 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, TextInput, Image, Pressable, ActivityIndicator, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Modal } from 'react-native';
 import { generateStoryAndImage } from './services/geminiService';
 import type { Story } from './types';
-import Paywall from './screens/Paywall.native';
-import { configureRevenueCat, isPremium } from './services/purchases';
+ 
 
 export default function AppNative() {
   const [prompt, setPrompt] = useState('');
   const [story, setStory] = useState<Story | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showPaywall, setShowPaywall] = useState(false);
-  const [premium, setPremium] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      await configureRevenueCat();
-      const p = await isPremium();
-      setPremium(p);
-    })();
-  }, []);
+ 
 
   const handleGenerate = useCallback(async () => {
     if (!prompt.trim()) return;
@@ -29,9 +19,7 @@ export default function AppNative() {
     try {
       const result = await generateStoryAndImage(prompt.trim());
       setStory(result);
-      if (!result.imageUrl) {
-        setShowPaywall(true);
-      }
+      
     } catch (e: any) {
       setError(e?.message || 'Bir hata oluştu');
     } finally {
@@ -48,13 +36,7 @@ export default function AppNative() {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>Sihirli Hikayeler</Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 8, marginBottom: 8 }}>
-          {!premium && (
-            <Pressable style={styles.secondaryButton} onPress={() => setShowPaywall(true)}>
-              <Text style={styles.secondaryButtonText}>Premium Ol</Text>
-            </Pressable>
-          )}
-        </View>
+        
 
         {!story && !loading && (
           <View style={styles.card}>
@@ -102,17 +84,7 @@ export default function AppNative() {
 
         <Text style={styles.footer}>Yapay zeka ile sihirli dünyalar yaratın.</Text>
       </ScrollView>
-      <Modal visible={showPaywall} animationType="slide" onRequestClose={() => setShowPaywall(false)}>
-        <View style={{ flex: 1, paddingTop: 48, backgroundColor: '#FFF7E6' }}>
-          <Paywall
-            onClose={() => setShowPaywall(false)}
-            onPurchased={async () => {
-              const p = await isPremium();
-              setPremium(p);
-            }}
-          />
-        </View>
-      </Modal>
+      
     </KeyboardAvoidingView>
   );
 }
@@ -135,4 +107,5 @@ const styles = StyleSheet.create({
   loadingText: { marginTop: 8, color: '#6b7280' },
   footer: { textAlign: 'center', marginTop: 16, color: '#6b7280' },
 });
+
 
