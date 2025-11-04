@@ -19,7 +19,7 @@ module.exports = {
   expo: {
     name: 'MasalMatik',
     slug: 'masalmatik',
-    version: '1.0.1',
+    version: '1.0.2',
     orientation: 'portrait',
     icon: icon,
     userInterfaceStyle: 'light',
@@ -36,7 +36,7 @@ module.exports = {
     android: {
       package: 'com.masalmatik.app',
       privacyPolicy: 'https://kocgurbuzislam.github.io/masalmatik-privacy/PRIVACY_POLICY.md',
-      versionCode: 2,
+      versionCode: 3,
       adaptiveIcon: {
         ...(adaptiveForeground ? { foregroundImage: adaptiveForeground } : icon ? { foregroundImage: icon } : {}),
         backgroundColor: BRAND_BG,
