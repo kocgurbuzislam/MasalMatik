@@ -48,7 +48,8 @@ app.post('/api/generate', async (req, res) => {
     
     async function generateTextWithFallback(promptText, retries = 1) {
       // Try different models - order matters (most stable first)
-      const models = ['gemini-1.5-pro', 'gemini-pro', 'gemini-1.5-flash'];
+      // Model names without 'models/' prefix
+      const models = ['gemini-2.0-flash-001', 'gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-2.5-pro'];
       let lastErr;
       
       for (let attempt = 0; attempt <= retries; attempt++) {
