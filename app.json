@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "38e7ba94-7416-4c06-904f-c38f02f92f30"
+      }
+    },
+    "android": {
+      "package": "com.masalmatik.app"
+    }
+  }
+}

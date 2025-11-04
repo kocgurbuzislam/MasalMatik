@@ -35,6 +35,7 @@ module.exports = {
     },
     android: {
       package: 'com.masalmatik.app',
+      privacyPolicy: 'https://kocgurbuzislam.github.io/masalmatik-privacy/PRIVACY_POLICY.md',
       versionCode: 1,
       adaptiveIcon: {
         ...(adaptiveForeground ? { foregroundImage: adaptiveForeground } : icon ? { foregroundImage: icon } : {}),
