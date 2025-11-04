@@ -39,7 +39,7 @@ app.post('/api/generate', async (req, res) => {
       return res.status(400).send('Missing prompt');
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey, { apiVersion: 'v1' });
+    const genAI = new GoogleGenerativeAI(apiKey);
     
     // Retry function with exponential backoff
     async function sleep(ms) {
@@ -47,8 +47,8 @@ app.post('/api/generate', async (req, res) => {
     }
     
     async function generateTextWithFallback(promptText, retries = 1) {
-      // Use only gemini-1.5-flash (most stable, less likely to hit rate limits)
-      const models = ['gemini-1.5-flash'];
+      // Try different models - order matters (most stable first)
+      const models = ['gemini-1.5-pro', 'gemini-pro', 'gemini-1.5-flash'];
       let lastErr;
       
       for (let attempt = 0; attempt <= retries; attempt++) {
