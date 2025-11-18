@@ -194,7 +194,7 @@ export default function AppNative() {
                 style={[styles.deleteButton, ({ pressed }) => pressed && styles.buttonPressed]}
                 onPress={() => handleDeleteStory(story.id)}
               >
-                <Text style={styles.deleteButtonText}>🗑️</Text>
+                <Text style={styles.deleteButtonText}>✕</Text>
               </Pressable>
             </View>
           </View>
@@ -231,7 +231,7 @@ export default function AppNative() {
                       }}
                       style={styles.historyDeleteButton}
                     >
-                      <Text style={styles.historyDeleteText}>🗑️</Text>
+                      <Text style={styles.historyDeleteText}>✕</Text>
                     </Pressable>
                   </Pressable>
                 ))}

@@ -19,7 +19,11 @@ module.exports = {
   expo: {
     name: 'MasalMatik',
     slug: 'masalmatik',
-    version: '1.0.4',
+    // Version: Semantic versioning (MAJOR.MINOR.PATCH)
+    // - MAJOR: Breaking changes (1.0.0 -> 2.0.0)
+    // - MINOR: New features, backward compatible (1.0.0 -> 1.1.0)
+    // - PATCH: Bug fixes, backward compatible (1.0.0 -> 1.0.1)
+    version: '1.0.0',
     orientation: 'portrait',
     icon: icon,
     userInterfaceStyle: 'light',
@@ -31,12 +35,15 @@ module.exports = {
     assetBundlePatterns: ['**/*'],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: 'com.masalmatik.app',
+      bundleIdentifier: 'com.islamkgb.masalmatik',
     },
     android: {
       package: 'com.masalmatik.app',
       privacyPolicy: 'https://kocgurbuzislam.github.io/masalmatik-privacy/PRIVACY_POLICY.md',
-      versionCode: 100,
+      // versionCode: Android için her yeni build'de mutlaka artırılmalı (1, 2, 3, 4...)
+      // Google Play'de herhangi bir track'te kullanılan versionCode tekrar kullanılamaz
+      // Her yeni AAB dosyası için versionCode'u +1 artırın
+      versionCode: 2,
       adaptiveIcon: {
         ...(adaptiveForeground ? { foregroundImage: adaptiveForeground } : icon ? { foregroundImage: icon } : {}),
         backgroundColor: BRAND_BG,

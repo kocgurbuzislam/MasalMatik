@@ -1,12 +1,13 @@
 {
   "expo": {
-    "extra": {
-      "eas": {
-        "projectId": "38e7ba94-7416-4c06-904f-c38f02f92f30"
-      }
-    },
     "android": {
       "package": "com.masalmatik.app"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2758f47c-32be-4566-a8af-1eb7cdb26c70"
+      }
+    },
+    "owner": "islamkgb"
   }
 }

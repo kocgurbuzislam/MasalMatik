@@ -27,15 +27,43 @@ export async function generateStoryAndImage(prompt: string): Promise<Story> {
   try {
     const baseUrl = deriveBaseUrl();
 
-    const controller = new AbortController();
-    const t = setTimeout(() => controller.abort(), 45000);
-    const res = await fetch(`${baseUrl}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt }),
-      signal: controller.signal,
-    });
-    clearTimeout(t);
+    async function warmUpBackend() {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        await fetch(`${baseUrl}/health`, { signal: controller.signal });
+        clearTimeout(timeoutId);
+      } catch (_) {
+        // Health check failures are non-fatal; proceed to main request.
+      }
+    }
+
+    async function fetchWithTimeout(timeoutMs: number) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        return await fetch(`${baseUrl}/api/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt }),
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    await warmUpBackend();
+
+    const MAX_TIMEOUT = 90000; // 90s – Render gibi ücretsiz barındırmalarda soğuk başlatma için yeterli.
+    let res = await fetchWithTimeout(MAX_TIMEOUT);
+
+    if (!res.ok && res.status === 503) {
+      // Backend henüz hazır değilse kısa bir süre bekleyip yeniden dene.
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      res = await fetchWithTimeout(MAX_TIMEOUT);
+    }
+
     if (!res.ok) {
       const contentType = res.headers.get('content-type') || '';
       if (contentType.includes('application/json')) {
